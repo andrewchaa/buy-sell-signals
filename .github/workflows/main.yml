@@ -1,24 +1,19 @@
-name: Deploy
+name: main
 
 on:
+  schedule:
+    - cron: '0 9 * * *' # Runs once a day at 09:00 UTC
   workflow_dispatch:
 
 env:
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  AWS_SDK_LOAD_CONFIG: 1
+  SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+  SENDGRID_FROM_EMAIL: ${{ secrets.SENDGRID_FROM_EMAIL }}
+  SENDGRID_TO_EMAILS: ${{ secrets.SENDGRID_TO_EMAILS }}
 
 jobs:
-  deploy:
-    name: deploy
+  run:
+    name: Run Signals
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        stage: ['prod']
-      fail-fast: true
-      max-parallel: 1
-    env:
-      TF_VAR_env: ${{ matrix.stage }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -28,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pandas matplotlib numpy yfinance
+          pip install pandas matplotlib numpy yfinance sendgrid
 
       - name: Run Python script
         run: python src/decide-buysell/main.py
