@@ -1,4 +1,5 @@
 import base64
+from datetime import date
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -22,7 +23,8 @@ message.from_email = From(os.environ.get('SENDGRID_FROM_EMAIL'))
 message.to = [
     To(email=os.environ.get(
         'SENDGRID_TO_EMAILS').split(','))]
-message.subject = Subject("EMA Signals")
+message.subject = Subject(
+    f"EMA Signals for {date.today()}")
 message.content = [
     Content(
         mime_type="text/html",
