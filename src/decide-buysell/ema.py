@@ -4,10 +4,9 @@ import numpy as np
 import yfinance as yf
 
 
-def get_nasdaq_data():
-    nasdaq = yf.Ticker("^IXIC")
-    nasdaq_data = nasdaq.history(period="3mo", interval="1d")
-    return nasdaq_data
+def get_data(tickerData):
+    historical_data = tickerData.history(period="3mo", interval="1d")
+    return historical_data
 
 
 def get_signals(df):
@@ -54,11 +53,11 @@ def get_figure(df, signals):
     return fig
 
 
-df = get_nasdaq_data()
-signals = get_signals(df)
-chart = get_figure(df, signals)
+# df = get_data()
+# signals = get_signals(df)
+# chart = get_figure(df, signals)
 
-chart.savefig('signals.png')
-print(signals.tail())
+# chart.savefig('signals.png')
+# print(signals.tail())
 
 # plt.show()

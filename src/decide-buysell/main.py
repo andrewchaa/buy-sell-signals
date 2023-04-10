@@ -9,11 +9,13 @@ import sendgrid
 from sendgrid.helpers.mail import *
 import ema
 
-df = ema.get_nasdaq_data()
+nasdaq_data = yf.Ticker("^IXIC")
+df = ema.get_data(nasdaq_data)
 signals = ema.get_signals(df)
-chart = ema.get_figure(df, signals)
 
+chart = ema.get_figure(df, signals)
 chart.savefig('signals.png')
+
 print(signals.tail())
 
 sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
