@@ -51,13 +51,3 @@ def get_figure(df, signals):
 
     plt.legend()
     return fig
-
-
-# df = get_data()
-# signals = get_signals(df)
-# chart = get_figure(df, signals)
-
-# chart.savefig('signals.png')
-# print(signals.tail())
-
-# plt.show()

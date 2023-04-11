@@ -1,53 +1,28 @@
-import base64
-from datetime import date
-import os
-import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
 import yfinance as yf
-import sendgrid
 from sendgrid.helpers.mail import *
 import ema
+import mailer
 
-nasdaq_data = yf.Ticker("^IXIC")
-df = ema.get_data(nasdaq_data)
-signals = ema.get_signals(df)
+tickers = ["^IXIC", "GC=F", "^N225"]
+names = ["Nasdaq", "Gold", "Nikkei 225"]
+charts = []
+content = ''
+html_content = ''
 
-chart = ema.get_figure(df, signals)
-chart.savefig('signals.png')
+for i, ticker in enumerate(tickers):
+    data = yf.Ticker(ticker)
+    df = ema.get_data(data)
+    signals = ema.get_signals(df)
+    chart = ema.get_figure(df, signals)
+    chart_file = f'Signals-{names[i]}.png'
+    chart.savefig(chart_file)
+    charts.append(chart_file)
 
-print(signals.tail())
+    content += f'EMA Signals for {names[i]}: \n'
+    content += f'{signals.tail()}\n\n'
+    print(content)
 
-sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
-message = Mail()
+    html_content += f'<p>EMA Signals for {names[i]}:</p>\n'
+    html_content += f'{signals.tail().to_html()}<br /><br />\n\n'
 
-message.from_email = From(os.environ.get('SENDGRID_FROM_EMAIL'))
-message.to = [
-    To(email=os.environ.get(
-        'SENDGRID_TO_EMAILS').split(','))]
-message.subject = Subject(
-    f"EMA Signals for {date.today()}")
-message.content = [
-    Content(
-        mime_type="text/html",
-        content=signals.tail().to_html()
-    )
-]
-
-image_filename = "signals.png"
-
-with open(image_filename, 'rb') as f:
-    img_data = f.read()
-    img_data_b64 = base64.b64encode(img_data).decode()
-    f.close()
-
-message.attachment = [
-    Attachment(
-        FileContent(img_data_b64),
-        FileName(image_filename),
-        FileType('image/png'),
-        Disposition('attachment')
-    )]
-
-response = sg.client.mail.send.post(request_body=message.get())
-print(response.status_code)
+mailer.send(html_content, charts)
