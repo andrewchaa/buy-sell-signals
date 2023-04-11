@@ -31,13 +31,13 @@ def get_signals(df):
     return signals
 
 
-def get_figure(df, signals):
+def get_figure(df, signals, name):
     fig = plt.figure(figsize=(12, 10))
     ax1 = fig.add_subplot(111, ylabel='Price in $')
 
     df.loc['2018-01-01':, 'Close'].plot(ax=ax1,
-                                        color='r', lw=2., label='Close Price')
-    signals.loc[:, 'ema'].plot(ax=ax1, lw=2.)
+                                        color='r', lw=2., label=f'{name} Close Price')
+    signals.loc[:, 'ema'].plot(ax=ax1, lw=2., label=f'{name} EMA')
 
     # Plot the buy signals
     ax1.plot(signals.loc[signals.ema_positions == 1.0].index,

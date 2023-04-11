@@ -13,7 +13,7 @@ for i, ticker in enumerate(tickers):
     data = yf.Ticker(ticker)
     df = ema.get_data(data)
     signals = ema.get_signals(df)
-    chart = ema.get_figure(df, signals)
+    chart = ema.get_figure(df, signals, names[i])
     chart_file = f'Signals-{names[i]}.png'
     chart.savefig(chart_file)
     charts.append(chart_file)
