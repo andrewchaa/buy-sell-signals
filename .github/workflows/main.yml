@@ -1,4 +1,4 @@
-name: main
+name: summary
 
 on:
   schedule:
@@ -26,4 +26,4 @@ jobs:
           pip install pandas matplotlib numpy yfinance sendgrid
 
       - name: Run Python script
-        run: python src/decide-buysell/main.py
+        run: python src/decide-buysell/summary.py

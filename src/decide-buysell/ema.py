@@ -4,11 +4,6 @@ import numpy as np
 import yfinance as yf
 
 
-def get_data(tickerData):
-    historical_data = tickerData.history(period="3mo", interval="1d")
-    return historical_data
-
-
 def get_signals(df):
     short_window = 5
     long_window = 15

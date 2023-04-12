@@ -2,15 +2,14 @@ import base64
 import os
 import sendgrid
 from sendgrid.helpers.mail import *
-from datetime import date
 
 
-def send(html_content, charts):
+def send(to_emails, subject, html_content, charts):
     sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
     message = Mail()
     message.from_email = From(os.environ.get('SENDGRID_FROM_EMAIL'))
-    message.to = [To(email=os.environ.get('SENDGRID_TO_EMAILS').split(','))]
-    message.subject = Subject(f"EMA Signals for {date.today()}")
+    message.to = [To(email=to_emails)]
+    message.subject = Subject(subject)
     message.content = [
         Content(
             mime_type="text/html",
