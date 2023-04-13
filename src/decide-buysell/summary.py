@@ -1,3 +1,4 @@
+from datetime import date
 import os
 import yfinance as yf
 from sendgrid.helpers.mail import *

@@ -12,14 +12,8 @@ def get_signals(df):
 
     signals['ema_signal'] = 0.0
     signals['ema'] = df['Close'].ewm(alpha=alpha, adjust=False).mean()
+    signals['close'] = df['Close']
     signals['ema_positions'] = 0.0
-    signals['short_mavg'] = df['Close'].rolling(window=short_window,
-                                                min_periods=1,
-                                                center=False).mean()
-    signals['long_mavg'] = df['Close'].rolling(window=long_window,
-                                               min_periods=1,
-                                               center=False).mean()
-    signals['sma_positions'] = 0.0
 
     signals['ema_signal'] = np.where(signals['ema'] < df['Close'], 1.0, 0.0)
     signals['ema_positions'] = signals['ema_signal'].diff()
