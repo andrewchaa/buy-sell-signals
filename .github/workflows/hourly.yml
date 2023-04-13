@@ -1,4 +1,4 @@
-name: summary
+name: hourly
 
 on:
   schedule:
