@@ -27,4 +27,4 @@ for i, ticker in enumerate(tickers):
     html_content += f'{signals.tail().to_html()}<br /><br />\n\n'
 
 to_emails = os.environ.get('SENDGRID_TO_EMAILS').split(',')
-mailer.send(to_emails, f"EMA Signals for {date.today()}", html_content, [])
+mailer.send(to_emails, f"EMA Signals for {date.today()}", html_content, charts)
