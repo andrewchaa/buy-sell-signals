@@ -5,8 +5,8 @@ from sendgrid.helpers.mail import *
 import ema
 import mailer
 
-tickers = ["^IXIC", "GC=F", "^N225"]
-names = ["Nasdaq", "Gold", "Nikkei 225"]
+tickers = ["^IXIC", "GC=F", "^N225", "^FTSE", "^GDAXI"]
+names = ["Nasdaq", "Gold", "Nikkei 225", "UK 100", "Germany 40"]
 charts = []
 content = ''
 html_content = ''
