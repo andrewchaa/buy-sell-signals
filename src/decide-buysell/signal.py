@@ -19,7 +19,7 @@ for i, ticker in enumerate(tickers):
     latest_ema = signals.tail(1)['ema'].values[0]
 
     quarterlyDf = yfTicker.history(period="5d", interval="15m")
-    reviewDf = quarterlyDf[['Close']].tail(10)
+    reviewDf = quarterlyDf[['Close']].tail(5)
     reviewDf['Ema'] = latest_ema
     reviewDf['Signal'] = np.where(
         reviewDf['Close'] > reviewDf['Ema'], 1.0, 0.0)

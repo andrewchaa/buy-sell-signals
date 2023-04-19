@@ -1,8 +1,8 @@
-name: hourly
+name: signal
 
 on:
   schedule:
-    - cron: '0 * * * *' # Runs every hour on the hour
+    - cron: '*/15 * * * *' # Runs every hour on the hour
 
   workflow_dispatch:
 
@@ -27,4 +27,4 @@ jobs:
           pip install pandas matplotlib numpy yfinance sendgrid
 
       - name: Run Python script
-        run: python src/decide-buysell/hourly.py
+        run: python src/decide-buysell/signal.py
