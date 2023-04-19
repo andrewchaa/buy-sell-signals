@@ -18,8 +18,8 @@ for i, ticker in enumerate(tickers):
     signals = ema.get_signals(dailyDf)
     latest_ema = signals.tail(1)['ema'].values[0]
 
-    hourlyDf = yfTicker.history(period="1d", interval="1h")
-    reviewDf = hourlyDf[['Close']].tail(3)
+    quarterlyDf = yfTicker.history(period="5d", interval="15m")
+    reviewDf = quarterlyDf[['Close']].tail(10)
     reviewDf['Ema'] = latest_ema
     reviewDf['Signal'] = np.where(
         reviewDf['Close'] > reviewDf['Ema'], 1.0, 0.0)
@@ -34,4 +34,4 @@ for i, ticker in enumerate(tickers):
     if (reviewDf['Signal_Position'] == 1.0).any():
         to_emails = os.environ.get('SENDGRID_TO_EMAILS').split(',')
         mailer.send(
-            to_emails, f"Hourly Signal alerts on {date.today()} for {names[i]} ", html_content, [])
+            to_emails, f"Quarterly Signal alerts on {date.today()} for {names[i]} ", html_content, [])
