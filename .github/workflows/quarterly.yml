@@ -27,4 +27,4 @@ jobs:
           pip install pandas matplotlib numpy yfinance sendgrid
 
       - name: Run Python script
-        run: python src/decide-buysell/signal.py
+        run: python src/decide-buysell/quarterly.py
