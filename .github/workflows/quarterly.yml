@@ -1,4 +1,4 @@
-name: signal
+name: quarterly
 
 on:
   schedule:
