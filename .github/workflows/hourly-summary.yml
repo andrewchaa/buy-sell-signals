@@ -1,8 +1,8 @@
-name: quarterly
+name: Hourly Summary
 
-# on:
-#   schedule:
-#     - cron: '*/15 * * * *' # Runs every hour on the hour
+on:
+  schedule:
+    - cron: '0 * * * *' # Runs every hour
 
   workflow_dispatch:
 
@@ -27,4 +27,4 @@ jobs:
           pip install pandas matplotlib numpy yfinance sendgrid
 
       - name: Run Python script
-        run: python src/decide-buysell/quarterly.py
+        run: python src/decide-buysell/houry_summary.py

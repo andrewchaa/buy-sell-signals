@@ -131,3 +131,5 @@ dmypy.json
 # terraform
 terraforms/.terraform
 .terraform.lock.hcl
+
+charts/

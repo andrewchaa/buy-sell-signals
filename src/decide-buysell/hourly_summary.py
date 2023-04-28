@@ -5,6 +5,7 @@ from sendgrid.helpers.mail import *
 import ema
 import mailer
 
+DIR = 'charts'
 tickers = ["^IXIC", "GC=F", "^N225", "^FTSE", "^GDAXI"]
 names = ["Nasdaq", "Gold", "Nikkei 225", "UK 100", "Germany 40"]
 charts = []
@@ -12,10 +13,13 @@ content = ''
 html_content = ''
 
 for i, ticker in enumerate(tickers):
-    df = yf.Ticker(ticker).history(period="3mo", interval="1d")
-    signals = ema.get_signals_from_dataframe(df)
-    chart = ema.get_figure_ema(df, signals, names[i])
-    chart_file = f'Signals-{names[i]}.png'
+    df = yf.Ticker(ticker).history(period="5d", interval="1h")
+    signals = ema.get_signals(df, short_period=9, long_period=26)
+    if not os.path.exists(DIR):
+        os.makedirs(DIR)
+
+    chart = ema.get_figure(df, signals, names[i])
+    chart_file = f'{DIR}/Signals-{names[i]}.png'
     chart.savefig(chart_file)
     charts.append(chart_file)
 
