@@ -13,7 +13,7 @@ html_content = ''
 
 for i, ticker in enumerate(tickers):
     df = yf.Ticker(ticker).history(period="3mo", interval="1d")
-    signals = ema.get_signals(df)
+    signals = ema.get_signals_from_dataframe(df)
     chart = ema.get_figure(df, signals, names[i])
     chart_file = f'Signals-{names[i]}.png'
     chart.savefig(chart_file)

@@ -4,9 +4,7 @@ import numpy as np
 import yfinance as yf
 
 
-def get_signals(df):
-    short_window = 5
-    long_window = 15
+def get_signals_from_dataframe(df):
     alpha = 0.1
     signals = pd.DataFrame(index=df.index)
 
