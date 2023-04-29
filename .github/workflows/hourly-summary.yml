@@ -3,7 +3,7 @@ name: Hourly Summary
 on:
   schedule:
     - cron: '0 0 8-23 ? * MON,TUE,WED,THU,FRI *'
-    - cron: '0 0 22,23 ? * SAT *'
+    # - cron: '0 0 22,23 ? * SAT *'
 
   workflow_dispatch:
 
