@@ -15,7 +15,7 @@ for i, ticker in enumerate(tickers):
     html_content = ''
     yfTicker = yf.Ticker(ticker)
     dailyDf = yfTicker.history(period="3mo", interval="1d")
-    signals = ema.get_signals_from_dataframe(dailyDf)
+    signals = ema.get_ema_basic(dailyDf)
     latest_ema = signals.tail(1)['ema'].values[0]
 
     quarterlyDf = yfTicker.history(period="5d", interval="15m")

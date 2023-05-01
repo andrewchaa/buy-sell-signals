@@ -1,8 +1,8 @@
 name: summary
 
 on:
-  schedule:
-    - cron: '0 20 * * *' # Runs once a day at 09:00 UTC
+  # schedule:
+  #   - cron: '0 20 * * *' # Runs once a day at 09:00 UTC
   workflow_dispatch:
 
 env:

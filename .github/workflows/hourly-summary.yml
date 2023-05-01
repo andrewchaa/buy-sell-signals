@@ -28,4 +28,4 @@ jobs:
           pip install pandas matplotlib numpy yfinance sendgrid
 
       - name: Run Python script
-        run: python src/decide-buysell/hourly_summary.py
+        run: python src/decide-buysell/hourly_ema.py
