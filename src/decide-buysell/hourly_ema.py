@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 import os
 import yfinance as yf
 from sendgrid.helpers.mail import *
@@ -32,4 +32,4 @@ for i, ticker in enumerate(tickers):
     html_content += f'{signals.tail().to_html()}<br /><br />\n\n'
 
 to_emails = os.environ.get('SENDGRID_TO_EMAILS').split(',')
-mailer.send(to_emails, f"{period} EMA Signals on {date.now()}", html_content, charts)
+mailer.send(to_emails, f"{period} EMA Signals on {datetime.now()}", html_content, charts)
