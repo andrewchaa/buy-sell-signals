@@ -1,3 +1,4 @@
+# https://www.alpharithms.com/calculate-macd-python-272222/
 # import pandas as pd
 # import matplotlib.pyplot as plt
 import numpy as np
@@ -8,10 +9,12 @@ import plotly.graph_objects as go
 
 CLOSE = "Close"
 
-df = yf.Ticker('^IXIC').history(period='1y')
+df = yf.Ticker('^IXIC').history(period='1mo', interval='15m')
 df.ta.macd(close=CLOSE, fast=12, slow=26, signal=9, append=True)
 # pd.set_option('display.max_columns', None)
 df.columns = [x.lower() for x in df.columns]
+
+print(df.last('3d'))
 
 fig = make_subplots(rows=2, cols=1)
 # price Line
@@ -55,7 +58,7 @@ fig.append_trace(
         x=df.index,
         y=df['macds_12_26_9'],
         line=dict(color='#000000', width=2),
-        # showlegend=False,
+        showlegend=False,
         legendgroup='2',
         name='signal'
     ), row=2, col=1
