@@ -16,7 +16,7 @@ import numpy as np
 
 df = yf.Ticker('AAPL').history(period='1y', interval='1d')
 # df.set_index(pd.DatetimeIndex(df['Date']), inplace=True)
-df.ta.macd(close="Close", fast=12, slow=26, signal=9, append=True, col_names=('macd', 'macds', 'macdh'))
+df.ta.macd(close="Close", fast=12, slow=26, signal=9, append=True)
 
 # Calculate the MACD and Signal line difference
 df['macd_signal_diff'] = df['macd'] - df['macds']
@@ -25,10 +25,10 @@ df['macd_signal_diff'] = df['macd'] - df['macds']
 df['macd_cross'] = df['macd_signal_diff'].apply(lambda x: 1 if x > 0 else -1 if x < 0 else 0)
 
 # Identify the points where the MACD line crosses above the Signal line
-df['macd_cross_above'] = ((df['macd_cross'] > df['macd_cross'].shift(1)) & (df['macd_cross'] == 1))
+# df['macd_cross_above'] = ((df['macd_cross'] > df['macd_cross'].shift(1)) & (df['macd_cross'] == 1))
 
 # Identify the points where the MACD line crosses below the Signal line
-df['macd_cross_below'] = ((df['macd_cross'] < df['macd_cross'].shift(1)) & (df['macd_cross'] == -1))
+# df['macd_cross_below'] = ((df['macd_cross'] < df['macd_cross'].shift(1)) & (df['macd_cross'] == -1))
 
 print(df)
 
